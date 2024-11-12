@@ -1,0 +1,33 @@
+from cgitb import text
+from tkinter import COMMAND
+from uu import decode
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+import asyncio
+
+api = ""
+bot = Bot(token=api)
+dp = Dispatcher(bot, storage=MemoryStorage())
+
+
+@dp.message_handler(commands=['start'])
+async def start(message):
+    # print('I am a bot that helps you health.')
+    await message.answer('I am a bot that helps your health.')
+
+
+@dp.message_handler(text=['Urban'])
+async def urban_message(message):
+    print('Urban message')
+
+
+
+@dp.message_handler()
+async def all_message(message):
+    # print('Enter a command / start, to start conversation.')
+    await message.answer('Enter a command / start, to start conversation.')
+
+
+
+if __name__ == "__main__":
+    executor.start_polling(dp, skip_updates=True)
